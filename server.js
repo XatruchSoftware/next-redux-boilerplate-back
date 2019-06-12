@@ -36,5 +36,14 @@ app.delete('/todos/:title', async (req, res) => {
     res.status(200).send({ todo })
 })
 
-app.listen(port, () => console.log(`> Listening on port: ${port}`))
+app.put('/todos/:title', async (req, res) => {
+    const { title } = req.params
+    const todo = fakeTodoDB.find((todo) => todo.title === title)
+    const index = fakeTodoDB.indexOf(todo)
+    const updatedTodo = req.body
+    fakeTodoDB[index] = updatedTodo
+    res.status(200).send({ updatedTodo })
+})
+
+app.listen(port, (err) => console.log(`> Listening on port: ${port}`))
 
